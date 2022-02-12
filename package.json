@@ -1,57 +1,41 @@
 {
-  "name": "boring-project",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@material-ui/core": "^4.12.3",
-    "@material-ui/icons": "^4.11.2",
-    "@mui/material": "^5.3.1",
-    "@mui/styled-engine-sc": "^5.3.0",
-    "@mui/styles": "^5.3.0",
-    "@reduxjs/toolkit": "^1.5.1",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "@types/jest": "^24.0.0",
-    "@types/node": "^12.0.0",
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
-    "@types/react-redux": "^7.1.22",
-    "@types/react-router-dom": "^5.3.3",
-    "axios": "^0.25.0",
-    "node-sass": "^7.0.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-google-button": "^0.7.2",
-    "react-hook-form": "^7.25.3",
-    "react-redux": "^7.2.0",
-    "react-router-dom": "^6.2.1",
-    "react-scripts": "5.0.0",
-    "react-stripe-checkout": "^2.6.3",
-    "redux": "^4.1.2",
-    "redux-thunk": "^2.4.1",
-    "styled-components": "^5.3.3",
-    "typescript": "~4.1.5"
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "14.x",
+    "npm": "6.x",
+    "yarn": "1.x"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "cd client && NPM_CONFIG_PRODUCTION=false yarn && yarn build"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "concurrently": "^6.2.0",
+    "cookie-session": "^1.4.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.15",
+    "nodemon": "^2.0.4",
+    "passport": "^0.4.1",
+    "passport-facebook": "^3.0.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-local": "^1.0.0",
+    "stripe": "^8.160.0"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "jsonwebtoken": "^8.5.1",
+    "passport-jwt": "^4.0.0",
+    "passport-local-mongoose": "^6.1.0"
   }
 }
