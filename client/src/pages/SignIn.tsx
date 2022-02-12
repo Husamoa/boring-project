@@ -78,7 +78,9 @@ const SignIn:FunctionComponent<ProfileProps> = (props) => {
 
     const onSubmit = async (data:any) => {
         try {
-           await props.loginUser(data)
+            if (props.loginUser) {
+                await props.loginUser(data)
+            }
         } catch (err) {
             setErrors(err.message);
             setOpenInfo(true);

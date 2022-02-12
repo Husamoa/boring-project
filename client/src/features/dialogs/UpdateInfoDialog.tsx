@@ -27,7 +27,9 @@ const UpdateInfoDialog:React.FC<ProfileProps> = (props) => {
 
     const handleClose = (commit:boolean = false, data?:Object) => {
         if (commit) {
-            props.updateProfile(data);
+            if (props.updateProfile) {
+                props.updateProfile(data);
+            }
         }
         setOpen(false);
     };

@@ -12,11 +12,12 @@ import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Divider} from "@material-ui/core";
 import GoogleButton from "react-google-button";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {Controller, useForm} from "react-hook-form";
 import ValidationUtils from "../features/utils/ValidationUtils";
 import {connect} from "react-redux";
 import * as actions from "../actions";
+import {ProfileProps} from "../models/propTypes";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -42,13 +43,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const SignUp = (props) => {
+const SignUp:React.FC<ProfileProps> = (props) => {
     const classes = useStyles();
     const {handleSubmit, control, register, getValues} = useForm();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (props.auth) {
-            props.history.push('/profile')
+            navigate('/profile')
         }
     })
 
@@ -56,9 +58,11 @@ const SignUp = (props) => {
         window.open('/auth/google', "_self")
     }
 
-    const onSubmit = (data) => {
+    const onSubmit = (data:any) => {
         console.log('SignUp data', data)
-        props.registerUser(data)
+        if (props.registerUser) {
+            props.registerUser(data)
+        }
     }
 
     return (
@@ -178,9 +182,9 @@ const SignUp = (props) => {
                                         onChange={onChange}
                                         error={!!error}
                                         helperText={error ? error.message : null}
-                                        inputRef={register("passwordConfirmation", {
-                                            validate: () => ValidationUtils.confirmPassword(value, getValues('password'))
-                                        })}
+                                        // inputRef={register("passwordConfirmation", {
+                                        //     validate: () => ValidationUtils.confirmPassword(value, getValues('password'))
+                                        // })}
                                     />
                                 )}
                                 rules={{required: 'Pole hasło jest wymagane'}}
@@ -204,7 +208,7 @@ const SignUp = (props) => {
                     </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
-                            <Link to={"/sing-in"} variant="body2">
+                            <Link to={"/sing-in"}>
                                 Masz już konto? Zaloguj się
                             </Link>
                         </Grid>
@@ -214,7 +218,7 @@ const SignUp = (props) => {
         </Container>
     );
 }
-function mapStateToProps({auth}) {
+function mapStateToProps({auth}:ProfileProps) {
     return {auth: auth};
 }
 

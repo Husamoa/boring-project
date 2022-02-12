@@ -47,7 +47,7 @@ const Payments:FunctionComponent<ProfileProps> = (props) => {
                     description={"5 zł za 5 dni premium"}
                     currency={'pln'}
                     amount={500}
-                    token={token => props.handleToken(token)}
+                    token={token => props.handleToken && props.handleToken(token)}
                     stripeKey={process.env.REACT_APP_STRIPE_KEY ? process.env.REACT_APP_STRIPE_KEY : ""}>
                     <Button
                         variant="contained"

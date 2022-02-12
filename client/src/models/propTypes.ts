@@ -3,10 +3,10 @@ import {AlertProps} from "@mui/material";
 
 export interface ProfileProps {
     auth: User,
-    handleToken: (token:any) => void,
-    fetchUser: () => void,
-    loginUser: (data:any) => void,
-    updateProfile: (data:any) => void
+    handleToken?: (token:any) => void,
+    loginUser?: (data:any) => void,
+    registerUser?: (data:any) => void,
+    updateProfile?: (data:any) => void
 }
 
 export interface CustomAlertProps extends AlertProps {
