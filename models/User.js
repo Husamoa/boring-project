@@ -3,7 +3,7 @@ const {Schema} = mongoose;
 const jwt = require('njwt');
 
 const passportLocalMongoose = require("passport-local-mongoose");
-const keys = require("../config/dev");
+const keys = require("../config/keys");
 
 const Session = new Schema({
     refreshToken: {
