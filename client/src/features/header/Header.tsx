@@ -206,7 +206,7 @@ const Header:React.FC<ProfileProps> = (props) => {
                 })}>
                 <Toolbar>
                     <Typography className={classes.title} variant="h6" noWrap>
-                        <Link className={classes.link} to={'/'}>Boring App</Link>
+                        <Link className={classes.link} to={'/'}>App Logo</Link>
                     </Typography>
                     <div className={classes.grow}/>
                     <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>

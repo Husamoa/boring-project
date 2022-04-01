@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
+const jwt = require('njwt');
 
 const passportLocalMongoose = require("passport-local-mongoose");
+const keys = require("../config/dev");
 
 const Session = new Schema({
     refreshToken: {
@@ -53,7 +55,22 @@ userSchema.set("toJSON", {
     },
 });
 
-userSchema.plugin(passportLocalMongoose)
+userSchema.plugin(passportLocalMongoose);
+
+userSchema.statics.findByToken = function (token) {
+    const User = this;
+    let decoded;
+    try {
+        decoded = jwt.verify(token, keys.JWT_SECRET);
+    } catch (e) {
+        return Promise.reject();
+    }
+    return User.findOne({
+        '_id': decoded._id,
+        'tokens.token': token, //user model having tokens array where generated token are stored when user sign in and deleted when user sign out
+        'tokens.access': 'auth'
+    });
+};
 
 mongoose.model('users', userSchema);
 

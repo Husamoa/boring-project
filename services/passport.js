@@ -1,8 +1,7 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const LocalStrategy = require("passport-local").Strategy
-const {getToken, COOKIE_OPTIONS, getRefreshToken, verifyUser} = require("../middlewares/authenticate")
-
+const LocalStrategy = require("passport-local").Strategy;
+const CookieStrategy = require("passport-cookie").Strategy;
 
 const mongoose = require('mongoose');
 const keys = require('../config/keys');
@@ -81,3 +80,15 @@ passport.use('local', new LocalStrategy({
 
     })
 );
+
+passport.use(new CookieStrategy({
+    cookieName: 'auth',
+    signed: true,
+    passReqToCallback: true
+}, function(req, token, done) {
+    User.findByToken({ token: token }, function(err, user) {
+        if (err) { return done(err); }
+        if (!user) { return done(null, false); }
+        return done(null, user);
+    });
+}));
